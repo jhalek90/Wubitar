@@ -6,59 +6,6 @@
 //INKY: created by Seph Reed https://github.com/SephReed
 /////////////////////////////////////////////////////////////
 
-function drawAvatar() {
-    var xx = 0; // x position in our grid
-    var yy = 0;// y position in our grid 
-    var width = 8; // grid width
-    var height = 8;// grid height 
-    var size = 16; // grid cell size in pixels
-    var canvas = document.getElementById("avatarCanvas"); // get the canvas
-    var ctx = canvas.getContext("2d");
-    const mode = Math.random(1);// set mode to a random between 0 and 1 used to pick symetry
-    // INKY Setup
-    INKY.setPainter(ctx);
-    INKY.setColor(INKY.HSV_to_RGB(Math.random(), 1, 1));
-    INKY.colorModes.rainbow.hue = Math.random();
-    // begin draw avatar
-    if (mode < 0.33) {
-        for (yy = 0; yy < height; yy++) {
-            for (xx = 0; xx < (width / 2); xx++) {
-                INKY.setColor(INKY.getNextColor())
-                if (Math.random(1) > 0.5) {
-                    ctx.fillRect(xx * size, yy * size, size, size);
-                    ctx.fillRect(((width - 1) - xx) * size, yy * size, size, size); // Mirror H
-                }
-            }
-        }
-    }
-    else if (mode < 0.66) {
-        for (yy = 0; yy < (height / 2); yy++) {
-            for (xx = 0; xx < width; xx++) {
-                INKY.setColor(INKY.getNextColor())
-                if (Math.random(1) > 0.5) {
-                    ctx.fillRect(xx * size, yy * size, size, size);
-                    ctx.fillRect(xx * size, ((height - 1) - yy) * size, size, size); // Mirror V
-                }
-            }
-        }
-    }
-    else {
-        for (yy = 0; yy < (height / 2); yy++) {
-            for (xx = 0; xx < width / 2; xx++) {
-                INKY.setColor(INKY.getNextColor())
-                if (Math.random(1) > 0.5) {
-                    ctx.fillRect(xx * size, yy * size, size, size);
-                    ctx.fillRect(xx * size, ((height - 1) - yy) * size, size, size);
-                    ctx.fillRect(((width - 1) - xx) * size, yy * size, size, size);
-                    ctx.fillRect(((width - 1) - xx) * size, ((height - 1) - yy) * size, size, size); // Mirror H and V
-                }
-            }
-        }
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////
-// begin INKY: https://github.com/SephReed/SephReed.github.io/blob/master/Inktober/INKY.js
 window.INKY = {};
 
 
@@ -89,6 +36,10 @@ INKY.setColorForPainter = function(painter, rOrRgb, g, b, a) {
         painter.fillStyle = "rgb(" + r + ", " + g + ", " + b + ")";
     }
 }
+
+// INKY.clearAll = function() {
+
+// }
 
 
 INKY.HSV_to_RGB = function(hue, saturation, value) {
@@ -133,7 +84,6 @@ INKY.HSV_to_RGB = function(hue, saturation, value) {
     return rgb;
 }
 
-
 INKY.getNextColor = function() {
     return INKY.colorModes.current.getNextColor();
 }
@@ -145,7 +95,7 @@ rainbow.hue = 0.1;
 rainbow.saturation = 0.75;
 rainbow.value = 1;
 //
-rainbow.hueChange = 0.005;
+rainbow.hueChange = 0.01;
 rainbow.saturationChange = 0;
 rainbow.valueChange = 0;
 //
@@ -156,4 +106,60 @@ rainbow.getNextColor = function() {
     rainbow.value += rainbow.valueChange;
     return rgb;
 }
-//Enjoy :D
+
+
+
+
+function drawAvatar() {
+    var xx = 0;
+    var yy = 0;
+    var width = 8;
+    var height = 8;
+    var size = 32;
+    var i = 0;
+    var b = [];
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#000000";
+    INKY.setPainter(ctx);
+    INKY.setColor(INKY.HSV_to_RGB(Math.random(), 1, 1));
+    INKY.colorModes.rainbow.hue = Math.random();
+    // INKY.colorModes.rainbow.hueChange = Math.random() * .01;
+
+    const mode = Math.random(1);
+    if (mode < 0.33) {
+        for (yy = 0; yy < height; yy++) {
+            for (xx = 0; xx < (width / 2); xx++) {
+                INKY.setColor(INKY.getNextColor())
+                if (Math.random(1) > 0.4) {
+                    ctx.fillRect(xx * size, yy * size, size, size);
+                    ctx.fillRect(((width - 1) - xx) * size, yy * size, size, size); // Mirror H
+                }
+            }
+        }
+    }
+    else if (mode < 0.66) {
+        for (yy = 0; yy < (height / 2); yy++) {
+            for (xx = 0; xx < width; xx++) {
+                INKY.setColor(INKY.getNextColor())
+                if (Math.random(1) > 0.4) {
+                    ctx.fillRect(xx * size, yy * size, size, size);
+                    ctx.fillRect(xx * size, ((height - 1) - yy) * size, size, size); // Mirror V
+                }
+            }
+        }
+    }
+    else {
+        for (yy = 0; yy < (height / 2); yy++) {
+            for (xx = 0; xx < width / 2; xx++) {
+                INKY.setColor(INKY.getNextColor())
+                if (Math.random(1) > 0.4) {
+                    ctx.fillRect(xx * size, yy * size, size, size);
+                    ctx.fillRect(xx * size, ((height - 1) - yy) * size, size, size);
+                    ctx.fillRect(((width - 1) - xx) * size, yy * size, size, size);
+                    ctx.fillRect(((width - 1) - xx) * size, ((height - 1) - yy) * size, size, size); // Mirror V
+                }
+            }
+        }
+    }
+}
